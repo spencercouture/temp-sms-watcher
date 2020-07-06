@@ -16,18 +16,24 @@ class generator:
     def __init__(self,):
         self.url = 'https://smsreceivefree.com/'
         self.headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
-        
-    def getNumber(self,country):
+    
+    def getAvailableNumbers(self,country):
         url = "{0}country/{1}".format(self.url, country)
-        
         r = requests.get(url, headers=self.headers)
         tree = html.fromstring(r.content)
         numbers = tree.xpath('//*[@class="row"]/a/text()')
         paths = tree.xpath('//*[@class="row"]/a/@href')
+        return numbers
+
+    def selectNumber(self,num):
+        # trim of leading + for ease
+        num = num[1:] if num.startswith("+") else num
         selected = random.randint(0,len(paths))
         number = numbers[selected].split(" ")[0]
         self.path = paths[selected]
         return number, country
+        pass
+
 
     def checkSMS(self,pattern):
         url = "{0}{1}/".format(self.url,self.path)

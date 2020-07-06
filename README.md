@@ -1,3 +1,5 @@
+This repository was forked in order to make changes so it better fits our internal program architecture. Particularly, we needed to get a list of all available numbers rather than grabbing a random one.
+
 # temp-sms-watcher
 
 It's just a wrapper for smsreceivefree.com that provide online phone number to receive sms.
